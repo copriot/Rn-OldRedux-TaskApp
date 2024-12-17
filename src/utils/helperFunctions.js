@@ -1,9 +1,18 @@
-const setcolor = status => {
+import {ThemeColors} from '../theme/colors';
+import {statusTypes} from './constant';
+
+export const setColor = status => {
   switch (status) {
-    case value:
-      break;
+    case statusTypes.ONHOLD:
+      return ThemeColors.green;
+    case statusTypes.INPROGRESS:
+      return ThemeColors.blue;
+    case statusTypes.INREVIEW:
+      return ThemeColors.pink;
+    case statusTypes.COMPLATED:
+      return ThemeColors.yellow;
 
     default:
-      break;
+      return ThemeColors.white;
   }
 };

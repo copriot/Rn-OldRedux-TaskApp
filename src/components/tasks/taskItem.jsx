@@ -2,6 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {ThemeColors} from '../../theme/colors';
 import {Calendar1, More} from 'iconsax-react-native';
+import {setColor} from '../../utils/helperFunctions';
 
 const TaskItem = ({item}) => {
   return (
@@ -13,13 +14,13 @@ const TaskItem = ({item}) => {
           <View
             style={{
               marginVertical: 8,
-              backgroundColor: 'red',
+              backgroundColor: setColor(item.status),
               padding: 5,
               borderRadius: 80,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={{color: ThemeColors.white, fontWeight: '500'}}>
+            <Text style={{color: ThemeColors.black, fontWeight: '500'}}>
               {item.status}
             </Text>
           </View>
