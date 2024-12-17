@@ -4,7 +4,14 @@ import {useSelector} from 'react-redux';
 import SectionTitle from '../../components/ui/sectionTitle';
 import TaskStatusCard from '../../components/dashboard/taskStatusCard';
 import {defaultScreenStyle} from '../../styles/defaultScreenStyle';
-import {VictoryPie, VictoryTheme} from 'victory-native';
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryPie,
+  VictoryTheme,
+} from 'victory-native';
+import {ThemeColors} from '../../theme/colors';
+import {RotateLeft} from 'iconsax-react-native';
 
 const Dashboard = () => {
   const {taskStatus} = useSelector(state => state?.tasks);
@@ -19,16 +26,40 @@ const Dashboard = () => {
           ))}
         </View>
         <SectionTitle title="Project Statistic" />
-        <VictoryPie
-          innerRadius={50}
-          data={[
-            {label: 'Cats', x: 1, y: 30},
-            {label: 'Dogs', x: 2, y: 35},
-            {label: 'Birds', x: 3, y: 25},
-            {label: 'Rabbits', x: 4, y: 10},
-          ]}
-          theme={VictoryTheme.clean}
-        />
+
+        <View
+          style={{justifyContent: 'center', alignItems: 'center', padding: 20}}>
+          <VictoryPie
+            width={320}
+            height={320}
+            labelRadius={111}
+            innerRadius={50}
+            padAngle={2}
+            data={[
+              {x: 'In Progress', y: 30},
+              {x: 'In Review', y: 35},
+              {x: 'On Hold', y: 25},
+              {x: 'Complated', y: 10},
+            ]}
+            categories={{
+              x: ['Cats', 'Birds', 'Dogs', 'Rabbits'],
+            }}
+            theme={VictoryTheme.clean}
+            style={{
+              data: {
+                fillOpacity: 0.99,
+                stroke: ThemeColors.black,
+                strokeWidth: 3,
+              },
+              labels: {
+                fontSize: 12,
+                fill: '#c43a31',
+                fontWeight: '700',
+                translate: 5,
+              },
+            }}
+          />
+        </View>
       </ScrollView>
     </View>
   );

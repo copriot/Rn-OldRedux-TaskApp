@@ -16,18 +16,26 @@ const RootNavigator = () => {
           fontSize: 22,
         },
         headerShadowVisible: false,
-        headerRight: () => (
-          <View style={{flexDirection: 'row', gap: 15}}>
-            <Pressable>
-              <Notification size={'32'} color={ThemeColors.black} />
-            </Pressable>
-            <Pressable>
-              <TaskSquare size={'30'} color={ThemeColors.black} />
-            </Pressable>
-          </View>
-        ),
+        headerTintColor: ThemeColors.black,
+        headerBackTitle: 'Back',
       })}>
-      <Stack.Screen name={screenNames.DASHBOARD} component={Dashboard} />
+      <Stack.Screen
+        options={({route, navigation}) => ({
+          headerShadowVisible: false,
+          headerRight: () => (
+            <View style={{flexDirection: 'row', gap: 15}}>
+              <Pressable>
+                <Notification size={'32'} color={ThemeColors.black} />
+              </Pressable>
+              <Pressable onPress={() => navigation.navigate(screenNames.TASKS)}>
+                <TaskSquare size={'30'} color={ThemeColors.black} />
+              </Pressable>
+            </View>
+          ),
+        })}
+        name={screenNames.DASHBOARD}
+        component={Dashboard}
+      />
       <Stack.Screen name={screenNames.TASKS} component={Tasks} />
     </Stack.Navigator>
   );
