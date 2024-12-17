@@ -2,8 +2,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Tasks from '../screens/tasks';
 import Dashboard from '../screens/dashboard';
 import {screenNames} from '../utils/routes';
-import {Pressable} from 'react-native';
-import {Notification} from 'iconsax-react-native';
+import {Pressable, View} from 'react-native';
+import {Notification, TaskSquare} from 'iconsax-react-native';
 import {ThemeColors} from '../theme/colors';
 
 const Stack = createNativeStackNavigator();
@@ -17,9 +17,14 @@ const RootNavigator = () => {
         },
         headerShadowVisible: false,
         headerRight: () => (
-          <Pressable>
-            <Notification size={'32'} color={ThemeColors.black} />
-          </Pressable>
+          <View style={{flexDirection: 'row', gap: 15}}>
+            <Pressable>
+              <Notification size={'32'} color={ThemeColors.black} />
+            </Pressable>
+            <Pressable>
+              <TaskSquare size={'30'} color={ThemeColors.black} />
+            </Pressable>
+          </View>
         ),
       })}>
       <Stack.Screen name={screenNames.DASHBOARD} component={Dashboard} />
