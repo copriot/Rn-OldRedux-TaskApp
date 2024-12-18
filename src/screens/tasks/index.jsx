@@ -4,8 +4,11 @@ import FloatActionButton from '../../components/ui/floatActionButton';
 import {ThemeColors} from '../../theme/colors';
 import {useSelector} from 'react-redux';
 import TaskItem from '../../components/tasks/taskItem';
+import {useNavigation} from '@react-navigation/native';
+import {screenNames} from '../../utils/routes';
 
 const Tasks = () => {
+  const navigation = useNavigation();
   const {tasks} = useSelector(state => state?.tasks);
   return (
     <>
@@ -22,7 +25,9 @@ const Tasks = () => {
       </View>
 
       <View style={styles.container}>
-        <FloatActionButton />
+        <FloatActionButton
+          onPress={() => navigation.navigate(screenNames.ADDTASK)}
+        />
       </View>
     </>
   );
