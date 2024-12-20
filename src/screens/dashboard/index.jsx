@@ -4,25 +4,34 @@ import {useSelector} from 'react-redux';
 import SectionTitle from '../../components/ui/sectionTitle';
 import TaskStatusCard from '../../components/dashboard/taskStatusCard';
 import {defaultScreenStyle} from '../../styles/defaultScreenStyle';
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryPie,
-  VictoryTheme,
-} from 'victory-native';
+import {VictoryPie, VictoryTheme} from 'victory-native';
 import {ThemeColors} from '../../theme/colors';
-import {RotateLeft} from 'iconsax-react-native';
+import {statusTypes} from '../../utils/constant';
 
 const Dashboard = () => {
-  const {taskStatus} = useSelector(state => state?.tasks);
+  const {taskStatus, tasks} = useSelector(state => state?.tasks);
+  const countTaskStatus = status => {
+    return tasks.filter(item => item?.status === status).length;
+  };
 
+  const calculatedTaskStatus = status => {
+    const totalTask = tasks.length;
+    const taskCount = tasks.filter(item => item?.status === status).length;
+    const percentage = ((taskCount / totalTask) * 100).toFixed(2);
+    console.log(status, percentage);
+    return percentage;
+  };
   return (
     <View style={defaultScreenStyle.container}>
       <ScrollView style={{flex: 1}}>
         <SectionTitle title="Project Summary" />
         <View style={styles.dashboardContainer}>
           {taskStatus.map((item, index) => (
-            <TaskStatusCard item={item} key={index} />
+            <TaskStatusCard
+              item={item}
+              key={index}
+              value={countTaskStatus(item.status)}
+            />
           ))}
         </View>
         <SectionTitle title="Project Statistic" />
@@ -36,14 +45,14 @@ const Dashboard = () => {
             innerRadius={50}
             padAngle={2}
             data={[
-              {x: 'In Progress', y: 30},
-              {x: 'In Review', y: 35},
-              {x: 'On Hold', y: 25},
-              {x: 'Complated', y: 10},
+              {
+                x: 'In Progress',
+                y: calculatedTaskStatus(statusTypes.INPROGRESS),
+              },
+              {x: 'In Review', y: calculatedTaskStatus(statusTypes.INREVIEW)},
+              {x: 'On Hold', y: calculatedTaskStatus(statusTypes.ONHOLD)},
+              {x: 'Complated', y: calculatedTaskStatus(statusTypes.COMPLATED)},
             ]}
-            categories={{
-              x: ['Cats', 'Birds', 'Dogs', 'Rabbits'],
-            }}
             theme={VictoryTheme.clean}
             style={{
               data: {

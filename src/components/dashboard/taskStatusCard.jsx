@@ -1,13 +1,13 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {More, MoreCircle} from 'iconsax-react-native';
+import {MoreCircle} from 'iconsax-react-native';
 import {ThemeColors} from '../../theme/colors';
 
-const TaskStatusCard = ({item}) => {
+const TaskStatusCard = ({item, value}) => {
   return (
     <View style={[styles.container, {backgroundColor: item.color}]}>
       <View style={{}}>
-        <Text style={styles.value}>{item.value}</Text>
+        <Text style={styles.value}>{value}</Text>
         <Text style={styles.status}>{item.status}</Text>
       </View>
       <View>

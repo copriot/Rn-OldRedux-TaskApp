@@ -7,7 +7,11 @@ const Input = props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <TextInput style={styles.input} {...props} />
+      <TextInput
+        placeholderTextColor={ThemeColors.blue}
+        style={styles.input}
+        {...props}
+      />
     </View>
   );
 };
@@ -19,5 +23,9 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   title: {fontSize: 18, color: ThemeColors.gray},
-  input: {padding: 10},
+  input: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: ThemeColors.input,
+  },
 });

@@ -10,6 +10,7 @@ import {screenNames} from '../../utils/routes';
 const Tasks = () => {
   const navigation = useNavigation();
   const {tasks} = useSelector(state => state?.tasks);
+
   return (
     <>
       <View>
