@@ -1,5 +1,5 @@
 import {Alert} from 'react-native';
-import {ADDTASK, DELETETASK, UPDATETASK} from '../types/tasksTypes';
+import {ADDTASK, DELETETASK} from '../types/tasksTypes';
 
 export const addNewTask = task => {
   console.log(task);
@@ -11,6 +11,18 @@ export const addNewTask = task => {
     Alert.alert(
       'Save was succesful',
       'The save operation was succesfully complated',
+    );
+  };
+};
+export const deleteTask = taskId => {
+  return async dispatch => {
+    dispatch({
+      type: DELETETASK,
+      payload: taskId,
+    });
+    Alert.alert(
+      'Delete was succesful',
+      'The delete operation was succesfully complated',
     );
   };
 };
