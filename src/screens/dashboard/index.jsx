@@ -16,8 +16,10 @@ const Dashboard = () => {
 
   const calculatedTaskStatus = status => {
     const totalTask = tasks.length;
+
     const taskCount = tasks.filter(item => item?.status === status).length;
-    const percentage = ((taskCount / totalTask) * 100).toFixed(2);
+    const percentage = ((taskCount / totalTask) * 100).toFixed(2); // Yüzdelik hesaplama
+
     console.log(status, percentage);
     return percentage;
   };
@@ -41,24 +43,23 @@ const Dashboard = () => {
           <VictoryPie
             width={320}
             height={320}
-            labelRadius={111}
-            innerRadius={50}
+            labelRadius={114}
             padAngle={2}
             data={[
+              {x: 'On Hold', y: calculatedTaskStatus(statusTypes.ONHOLD)},
+              {x: 'In Review', y: calculatedTaskStatus(statusTypes.INREVIEW)},
+              {x: 'Complated', y: calculatedTaskStatus(statusTypes.COMPLATED)},
               {
                 x: 'In Progress',
                 y: calculatedTaskStatus(statusTypes.INPROGRESS),
               },
-              {x: 'In Review', y: calculatedTaskStatus(statusTypes.INREVIEW)},
-              {x: 'On Hold', y: calculatedTaskStatus(statusTypes.ONHOLD)},
-              {x: 'Complated', y: calculatedTaskStatus(statusTypes.COMPLATED)},
             ]}
             theme={VictoryTheme.clean}
             style={{
               data: {
                 fillOpacity: 0.99,
                 stroke: ThemeColors.black,
-                strokeWidth: 3,
+                strokeWidth: 1,
               },
               labels: {
                 fontSize: 12,

@@ -1,10 +1,26 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {ThemeColors} from '../../theme/colors';
-import {Calendar1, More} from 'iconsax-react-native';
+import {Calendar1, Edit, More, Trash} from 'iconsax-react-native';
 import {setColor} from '../../utils/helperFunctions';
+import {useDispatch} from 'react-redux';
+import {deleteTask} from '../../store/actions/taskActions';
+import {screenNames} from '../../utils/routes';
+import {useNavigation} from '@react-navigation/native';
 
 const TaskItem = ({item}) => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const deleteItem = () => {
+    Alert.alert('Attention!', 'Are you sure you want to delete ?', [
+      {text: 'Delete', onPress: () => dispatch(deleteTask(item.id))},
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ]);
+  };
   return (
     <View style={styles.container}>
       <View style={{justifyContent: 'space-around'}}>
@@ -30,8 +46,16 @@ const TaskItem = ({item}) => {
           <Text style={styles.title}>{item.date}</Text>
         </View>
       </View>
-      <View>
-        <More size={25} color={ThemeColors.black} variant="Outline" />
+      <View style={{flexDirection: 'row', gap: 10}}>
+        <TouchableOpacity onPress={() => deleteItem()}>
+          <Trash size={25} color={ThemeColors.black} variant="Outline" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(screenNames.UPDATETASK, {task: item})
+          }>
+          <Edit size={25} color={ThemeColors.black} variant="Outline" />
+        </TouchableOpacity>
       </View>
     </View>
   );
